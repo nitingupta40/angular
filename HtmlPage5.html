@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+<head>
+    <title>loop on values</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+        var countryApp = angular.module('countryApp', []);
+        countryApp.controller('CountryCtrl', ['$scope','$http', function (scope, http) {
+            http.get('countries.json').success(function (data) {
+                scope.countries = data;
+            });
+        }]);
+
+        //countryApp.controller('CountryCtrl', function ($scope, $http) {
+        //    $http.get('countries.json').success(function (data) {
+        //        $scope.countries = data;
+        //    });
+        //});
+
+        //countryApp.controller('CountryCtrl', function ($scope) {
+        //    $scope.countries = [{ "name": "Chine", "population": 10000000 },
+        //                        { "name": "India", "population": 2233333 },
+        //                        { "name": "USA", "population": 2222220 }];
+        //});
+    </script>
+</head>
+<body ng-controller="CountryCtrl">
+    Search: <input ng-model="query" type="text"/>
+    <ul>
+        <li ng-repeat="country in countries">
+            {{country.name}}  - population {{country.population}}
+        </li>
+    </ul>
+    <table>
+        <tr>
+            <th>Country</th>
+            <th>Population</th>
+        </tr>
+        <tr ng-repeat="country in countries | filter: query">
+            <td>{{country.name}}</td>
+            <td>{{country.population}}</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <th>Country</th>
+            <th>Population</th>
+        </tr>
+        <tr ng-repeat="country in countries | filter: query | orderBy:'population'">
+            <td>{{country.name}}</td>
+            <td>{{country.population}}</td>
+        </tr>
+    </table>
+    <br />
+    <table>
+        <tr>
+            <th>Country</th>
+            <th>Population</th>
+        </tr>
+        <tr ng-repeat="country in countries | filter: query | orderBy:'-population'">
+            <td>{{country.name}}</td>
+            <td>{{country.population}}</td>
+        </tr>
+    </table>
+</body>
+</html>
