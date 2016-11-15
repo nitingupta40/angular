@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="nameApp">
+<head>
+    <title>example 3</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/angular.js"></script>
+    <script>
+        var nameApp = angular.module('nameApp', []);
+        nameApp.controller('NameCtrl', function ($scope) {
+            $scope.firstname = "nitin";
+            $scope.$watch('lastname', function (newValue, oldValue) {
+                console.log('new vlaue is ' + newValue);
+            });
+            setTimeout(function () {
+                $scope.lastname = "gupta";
+                $scope.$apply();
+            }, 1000);
+        });
+
+    </script>
+</head>
+<body ng-controller="NameCtrl">
+    First name:<input ng-model="firstname" type="text">
+    <br />
+    Last name:<input ng-model="lastname" type="text" />
+    Hello {{firstname}} {{lastname}}
+
+</body>
+</html>
