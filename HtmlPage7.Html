@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="countryApp">
+<head>
+    <title>loop on values</title>
+    <meta charset="utf-8" />
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+    <script>
+        var countryApp = angular.module('countryApp', ['ngRoute']);
+        countryApp.config(function ($routeProvider) {
+            $routeProvider.
+                when('/', {
+                    template: '<ul><li ng-repeat = "country in countries">{{country.name}} </li></ul>',
+                    controller: 'CountryListCtrl'
+                }).
+            when('/:countryName', {
+                template: '<h1>To do create country detail view</h1>',
+                controller: 'CountryDetailCtrl'
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+        });
+
+        countryApp.controller('CountryListCtrl', ['$scope', '$http', function (scope, http) {
+            http.get('countries.json').success(function (data) {
+                scope.countries = data;
+            });
+        }]);
+
+        countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams) {
+            $scope.name = $routeParams.countryName
+            console.log($routeParams);
+         });
+
+    </script>
+</head>
+<body>
+    <div ng-view></div>
+    <h2>{{name}}</h2>
+</body>
+</html>
