@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app ="nameApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Hi I am the first controller</title>
+    <script src="Scripts/angular.js"></script>
+    <script>
+        var nameApp = angular.module('nameApp', []);
+        nameApp.controller('NameCtrl',
+        function ($scope) {
+            $scope.firstname = 'Hello';
+            $scope.lastname = 'World';
+        });
+    </script>
+
+</head>
+<body ng-controller="NameCtrl">
+    First name:<input ng-model="firstname" type="text" />
+    <br />
+    Last name:<input ng-model="lastname" type="text" />
+    Hello {{firstname}} {{lastname}}
+
+</body>
+</html>
